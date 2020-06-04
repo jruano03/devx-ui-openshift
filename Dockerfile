@@ -15,7 +15,7 @@ RUN yum -y install python3-pip wget
 #  && python3 -m pip install --upgrade pipenv \
 #  && pipenv install --system --deploy
 
-pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 USER 1001
 
