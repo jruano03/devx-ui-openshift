@@ -2,7 +2,9 @@ FROM registry.access.redhat.com/ubi8
 
 WORKDIR /app
 
-COPY Pipfile* /app/
+#COPY Pipfile* /app/
+COPY requirements.txt /app/
+
 
 ## NOTE - rhel enforces user container permissions stronger ##
 USER root
@@ -13,8 +15,10 @@ RUN yum -y install python3-pip wget
 #  && python3 -m pip install --upgrade pipenv \
 #  && pipenv install --system --deploy
 
+pip install -r requirements.txt
+
 USER 1001
 
 COPY . /app
 ENV FLASK_APP=server/__init__.py
-CMD ["python3", "manage.py", "run", "0.0.0.0:3000"]
+CMD ["python3", "manage.py", "start", "0.0.0.0:3000"]
